@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VisiualCode\\FormRegLogin\\FormRegLogin\\FormRegLogin.csproj",
+      "projectUniqueName": "D:\\VisiualCode\\reglogproject\\FormRegLogin\\FormRegLogin\\FormRegLogin.csproj",
       "projectName": "FormRegLogin",
-      "projectPath": "D:\\VisiualCode\\FormRegLogin\\FormRegLogin\\FormRegLogin.csproj",
+      "projectPath": "D:\\VisiualCode\\reglogproject\\FormRegLogin\\FormRegLogin\\FormRegLogin.csproj",
       "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
-      "outputPath": "D:\\VisiualCode\\FormRegLogin\\FormRegLogin\\obj\\",
+      "outputPath": "D:\\VisiualCode\\reglogproject\\FormRegLogin\\FormRegLogin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
