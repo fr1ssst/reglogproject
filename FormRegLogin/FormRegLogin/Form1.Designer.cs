@@ -36,7 +36,6 @@
             this.nextButton1 = new System.Windows.Forms.Button();
             this.registerNameTextBox = new System.Windows.Forms.TextBox();
             this.registerSurnameTextBox = new System.Windows.Forms.TextBox();
-            this.registerDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.nextButton2 = new System.Windows.Forms.Button();
             this.registerManRadioButton = new System.Windows.Forms.RadioButton();
             this.registerSexGroupBox = new System.Windows.Forms.GroupBox();
@@ -50,7 +49,9 @@
             this.progressTimer = new System.Windows.Forms.Timer(this.components);
             this.registerPanel1 = new System.Windows.Forms.Panel();
             this.registerPanel2 = new System.Windows.Forms.Panel();
-            this.registerDateTimePickerGroupBox = new System.Windows.Forms.GroupBox();
+            this.registerYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.registerMonthNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.registerDayNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.registerPanel3 = new System.Windows.Forms.Panel();
             this.registerPanel4 = new System.Windows.Forms.Panel();
             this.registerPhoneTextBox = new System.Windows.Forms.TextBox();
@@ -60,10 +61,15 @@
             this.loginPanel = new System.Windows.Forms.Panel();
             this.registerButton = new System.Windows.Forms.Button();
             this.loginButton2 = new System.Windows.Forms.Button();
+            this.privacyAndTermsLabel = new System.Windows.Forms.Label();
+            this.privacyAndTermsLabel2 = new System.Windows.Forms.Label();
+            this.privacyAndTermsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.registerSexGroupBox.SuspendLayout();
             this.registerPanel1.SuspendLayout();
             this.registerPanel2.SuspendLayout();
-            this.registerDateTimePickerGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.registerYearNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerMonthNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerDayNumericUpDown)).BeginInit();
             this.registerPanel3.SuspendLayout();
             this.registerPanel4.SuspendLayout();
             this.registerPanel5.SuspendLayout();
@@ -127,6 +133,7 @@
             this.registerNameTextBox.PlaceholderText = "Ім\'я";
             this.registerNameTextBox.Size = new System.Drawing.Size(177, 23);
             this.registerNameTextBox.TabIndex = 3;
+            this.registerNameTextBox.TextChanged += new System.EventHandler(this.registerNameTextBox_TextChanged);
             // 
             // registerSurnameTextBox
             // 
@@ -136,17 +143,9 @@
             this.registerSurnameTextBox.Size = new System.Drawing.Size(177, 23);
             this.registerSurnameTextBox.TabIndex = 2;
             // 
-            // registerDateTimePicker
-            // 
-            this.registerDateTimePicker.Location = new System.Drawing.Point(6, 22);
-            this.registerDateTimePicker.Name = "registerDateTimePicker";
-            this.registerDateTimePicker.Size = new System.Drawing.Size(200, 23);
-            this.registerDateTimePicker.TabIndex = 6;
-            this.registerDateTimePicker.ValueChanged += new System.EventHandler(this.registerDateTimePicker_ValueChanged);
-            // 
             // nextButton2
             // 
-            this.nextButton2.Location = new System.Drawing.Point(147, 162);
+            this.nextButton2.Location = new System.Drawing.Point(150, 179);
             this.nextButton2.Name = "nextButton2";
             this.nextButton2.Size = new System.Drawing.Size(75, 23);
             this.nextButton2.TabIndex = 7;
@@ -170,7 +169,7 @@
             // 
             this.registerSexGroupBox.Controls.Add(this.registerWomanRadioButton);
             this.registerSexGroupBox.Controls.Add(this.registerManRadioButton);
-            this.registerSexGroupBox.Location = new System.Drawing.Point(10, 73);
+            this.registerSexGroupBox.Location = new System.Drawing.Point(10, 90);
             this.registerSexGroupBox.Name = "registerSexGroupBox";
             this.registerSexGroupBox.Size = new System.Drawing.Size(212, 83);
             this.registerSexGroupBox.TabIndex = 9;
@@ -220,7 +219,7 @@
             // 
             // nextButton4
             // 
-            this.nextButton4.Location = new System.Drawing.Point(65, 49);
+            this.nextButton4.Location = new System.Drawing.Point(65, 74);
             this.nextButton4.Name = "nextButton4";
             this.nextButton4.Size = new System.Drawing.Size(75, 23);
             this.nextButton4.TabIndex = 13;
@@ -262,24 +261,83 @@
             // 
             // registerPanel2
             // 
-            this.registerPanel2.Controls.Add(this.registerDateTimePickerGroupBox);
+            this.registerPanel2.Controls.Add(this.registerYearNumericUpDown);
+            this.registerPanel2.Controls.Add(this.registerMonthNumericUpDown);
             this.registerPanel2.Controls.Add(this.nextButton2);
             this.registerPanel2.Controls.Add(this.registerSexGroupBox);
+            this.registerPanel2.Controls.Add(this.registerDayNumericUpDown);
             this.registerPanel2.Location = new System.Drawing.Point(260, 12);
             this.registerPanel2.Name = "registerPanel2";
-            this.registerPanel2.Size = new System.Drawing.Size(239, 193);
+            this.registerPanel2.Size = new System.Drawing.Size(239, 206);
             this.registerPanel2.TabIndex = 18;
             this.registerPanel2.Visible = false;
             // 
-            // registerDateTimePickerGroupBox
+            // registerYearNumericUpDown
             // 
-            this.registerDateTimePickerGroupBox.Controls.Add(this.registerDateTimePicker);
-            this.registerDateTimePickerGroupBox.Location = new System.Drawing.Point(10, 13);
-            this.registerDateTimePickerGroupBox.Name = "registerDateTimePickerGroupBox";
-            this.registerDateTimePickerGroupBox.Size = new System.Drawing.Size(212, 54);
-            this.registerDateTimePickerGroupBox.TabIndex = 23;
-            this.registerDateTimePickerGroupBox.TabStop = false;
-            this.registerDateTimePickerGroupBox.Text = "Дата народження";
+            this.registerYearNumericUpDown.Location = new System.Drawing.Point(10, 61);
+            this.registerYearNumericUpDown.Maximum = new decimal(new int[] {
+            2023,
+            0,
+            0,
+            0});
+            this.registerYearNumericUpDown.Minimum = new decimal(new int[] {
+            1920,
+            0,
+            0,
+            0});
+            this.registerYearNumericUpDown.Name = "registerYearNumericUpDown";
+            this.registerYearNumericUpDown.Size = new System.Drawing.Size(120, 23);
+            this.registerYearNumericUpDown.TabIndex = 29;
+            this.registerYearNumericUpDown.Value = new decimal(new int[] {
+            1920,
+            0,
+            0,
+            0});
+            // 
+            // registerMonthNumericUpDown
+            // 
+            this.registerMonthNumericUpDown.Location = new System.Drawing.Point(10, 32);
+            this.registerMonthNumericUpDown.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.registerMonthNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.registerMonthNumericUpDown.Name = "registerMonthNumericUpDown";
+            this.registerMonthNumericUpDown.Size = new System.Drawing.Size(120, 23);
+            this.registerMonthNumericUpDown.TabIndex = 30;
+            this.registerMonthNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // registerDayNumericUpDown
+            // 
+            this.registerDayNumericUpDown.Location = new System.Drawing.Point(10, 3);
+            this.registerDayNumericUpDown.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.registerDayNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.registerDayNumericUpDown.Name = "registerDayNumericUpDown";
+            this.registerDayNumericUpDown.Size = new System.Drawing.Size(120, 23);
+            this.registerDayNumericUpDown.TabIndex = 27;
+            this.registerDayNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.registerDayNumericUpDown.ValueChanged += new System.EventHandler(this.registerDayNumericUpDown_ValueChanged);
             // 
             // registerPanel3
             // 
@@ -295,7 +353,7 @@
             // 
             this.registerPanel4.Controls.Add(this.registerPasswordTextBox);
             this.registerPanel4.Controls.Add(this.nextButton4);
-            this.registerPanel4.Location = new System.Drawing.Point(285, 338);
+            this.registerPanel4.Location = new System.Drawing.Point(218, 338);
             this.registerPanel4.Name = "registerPanel4";
             this.registerPanel4.Size = new System.Drawing.Size(200, 100);
             this.registerPanel4.TabIndex = 20;
@@ -314,7 +372,7 @@
             // 
             this.registerPanel5.Controls.Add(this.nextButton5);
             this.registerPanel5.Controls.Add(this.registerPhoneTextBox);
-            this.registerPanel5.Location = new System.Drawing.Point(573, 338);
+            this.registerPanel5.Location = new System.Drawing.Point(424, 338);
             this.registerPanel5.Name = "registerPanel5";
             this.registerPanel5.Size = new System.Drawing.Size(200, 100);
             this.registerPanel5.TabIndex = 22;
@@ -334,7 +392,7 @@
             // 
             this.endRegisterPanel.Controls.Add(this.endRegisterButton);
             this.endRegisterPanel.Controls.Add(this.registerProgressBar);
-            this.endRegisterPanel.Location = new System.Drawing.Point(250, 211);
+            this.endRegisterPanel.Location = new System.Drawing.Point(12, 235);
             this.endRegisterPanel.Name = "endRegisterPanel";
             this.endRegisterPanel.Size = new System.Drawing.Size(268, 100);
             this.endRegisterPanel.TabIndex = 23;
@@ -373,20 +431,55 @@
             this.loginButton2.Visible = false;
             this.loginButton2.Click += new System.EventHandler(this.loginButton2_Click);
             // 
+            // privacyAndTermsLabel
+            // 
+            this.privacyAndTermsLabel.AutoSize = true;
+            this.privacyAndTermsLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.privacyAndTermsLabel.Location = new System.Drawing.Point(410, 234);
+            this.privacyAndTermsLabel.Name = "privacyAndTermsLabel";
+            this.privacyAndTermsLabel.Size = new System.Drawing.Size(252, 25);
+            this.privacyAndTermsLabel.TabIndex = 27;
+            this.privacyAndTermsLabel.Text = "Конфіденційність і умови";
+            this.privacyAndTermsLabel.Click += new System.EventHandler(this.privacyAndTermsLabel_Click);
+            // 
+            // privacyAndTermsLabel2
+            // 
+            this.privacyAndTermsLabel2.AutoSize = true;
+            this.privacyAndTermsLabel2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.privacyAndTermsLabel2.Location = new System.Drawing.Point(360, 259);
+            this.privacyAndTermsLabel2.Name = "privacyAndTermsLabel2";
+            this.privacyAndTermsLabel2.Size = new System.Drawing.Size(352, 40);
+            this.privacyAndTermsLabel2.TabIndex = 28;
+            this.privacyAndTermsLabel2.Text = "Щоб створити обліковий запис EcoITTechnology, \r\nпотрібно прийняти";
+            // 
+            // privacyAndTermsLinkLabel
+            // 
+            this.privacyAndTermsLinkLabel.AutoSize = true;
+            this.privacyAndTermsLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.privacyAndTermsLinkLabel.Location = new System.Drawing.Point(503, 279);
+            this.privacyAndTermsLinkLabel.Name = "privacyAndTermsLinkLabel";
+            this.privacyAndTermsLinkLabel.Size = new System.Drawing.Size(218, 20);
+            this.privacyAndTermsLinkLabel.TabIndex = 29;
+            this.privacyAndTermsLinkLabel.TabStop = true;
+            this.privacyAndTermsLinkLabel.Text = "Загальні положення та умови";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(785, 450);
+            this.Controls.Add(this.privacyAndTermsLinkLabel);
+            this.Controls.Add(this.privacyAndTermsLabel2);
+            this.Controls.Add(this.privacyAndTermsLabel);
             this.Controls.Add(this.loginButton2);
             this.Controls.Add(this.registerButton);
+            this.Controls.Add(this.registerPanel4);
             this.Controls.Add(this.registerPanel3);
             this.Controls.Add(this.loginPanel);
             this.Controls.Add(this.endRegisterPanel);
             this.Controls.Add(this.registerPanel2);
             this.Controls.Add(this.registerPanel1);
             this.Controls.Add(this.registerPanel5);
-            this.Controls.Add(this.registerPanel4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -395,7 +488,9 @@
             this.registerPanel1.ResumeLayout(false);
             this.registerPanel1.PerformLayout();
             this.registerPanel2.ResumeLayout(false);
-            this.registerDateTimePickerGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.registerYearNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerMonthNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registerDayNumericUpDown)).EndInit();
             this.registerPanel3.ResumeLayout(false);
             this.registerPanel3.PerformLayout();
             this.registerPanel4.ResumeLayout(false);
@@ -406,6 +501,7 @@
             this.loginPanel.ResumeLayout(false);
             this.loginPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -418,7 +514,6 @@
         private Button nextButton1;
         private TextBox registerNameTextBox;
         private TextBox registerSurnameTextBox;
-        private DateTimePicker registerDateTimePicker;
         private Button nextButton2;
         private RadioButton registerManRadioButton;
         private GroupBox registerSexGroupBox;
@@ -437,10 +532,15 @@
         private TextBox registerPhoneTextBox;
         private Panel registerPanel5;
         private Button nextButton5;
-        private GroupBox registerDateTimePickerGroupBox;
         private Panel endRegisterPanel;
         private Panel loginPanel;
         private Button registerButton;
         private Button loginButton2;
+        private NumericUpDown registerDayNumericUpDown;
+        private NumericUpDown registerYearNumericUpDown;
+        private NumericUpDown registerMonthNumericUpDown;
+        private Label privacyAndTermsLabel;
+        private Label privacyAndTermsLabel2;
+        private LinkLabel privacyAndTermsLinkLabel;
     }
 }

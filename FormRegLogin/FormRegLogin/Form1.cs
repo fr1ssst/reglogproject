@@ -1,4 +1,6 @@
 using System.Data;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
 namespace FormRegLogin
@@ -24,7 +26,15 @@ namespace FormRegLogin
         {
 
         }
+        private bool IsTextBoxEmptyOrWhiteSpace(TextBox textBox)
+        {
+            return string.IsNullOrWhiteSpace(textBox.Text);
+        }
 
+        private bool TextBoxContainsSpace(TextBox textBox)
+        {
+            return textBox.Text.Contains(" ");
+        }
         private void passwordWrite_TextChanged(object sender, EventArgs e)
         {
 
@@ -76,30 +86,52 @@ namespace FormRegLogin
         ///
         /// Next button in register panel
         /// 
-        /// 
+        ///  
         private void nextButton1_Click(object sender, EventArgs e)
         {
-            nameInput = registerNameTextBox.Text;
-            surnameInput = registerSurnameTextBox.Text;
+            if (IsTextBoxEmptyOrWhiteSpace(registerNameTextBox) || IsTextBoxEmptyOrWhiteSpace(registerSurnameTextBox))
+            {
+                MessageBox.Show("Текст в одному з полів відсутній.");
+            }
+            else if (TextBoxContainsSpace(registerNameTextBox) || TextBoxContainsSpace(registerSurnameTextBox))
+            {
+                MessageBox.Show("Текст в одному з полів містить пробіли.");
+            }
+            else
+            {
+                nameInput = registerNameTextBox.Text;
+                surnameInput = registerSurnameTextBox.Text;
 
-            registerPanel1.Visible = false;
-            registerPanel2.Visible = true;
+                registerPanel1.Visible = false;
+                registerPanel2.Visible = true;
+            }
         }
         private void nextButton2_Click(object sender, EventArgs e)
         {
-            selectedDate = registerDateTimePicker.Value;
-
-            if (registerManRadioButton.Checked)
+            if (!registerManRadioButton.Checked && !registerWomanRadioButton.Checked) 
             {
-                userChoice = registerManRadioButton.Text;
+                MessageBox.Show("Не вибрано жодного варіанту.");
             }
-            else if (registerWomanRadioButton.Checked)
+            else 
             {
-                userChoice = registerWomanRadioButton.Text;
-            }
+                int dayInput = (int)registerDayNumericUpDown.Value;
+                int monthInput = (int)registerMonthNumericUpDown.Value;
+                int yearInput = (int)registerYearNumericUpDown.Value;
 
-            registerPanel2.Visible = false;
-            registerPanel3.Visible = true;
+                DateTime date1 = new DateTime(yearInput, monthInput, dayInput);
+                DateTime dateOnly = date1.Date;
+
+                if (registerManRadioButton.Checked)
+                {
+                    userChoice = registerManRadioButton.Text;
+                }
+                else if (registerWomanRadioButton.Checked)
+                {
+                    userChoice = registerWomanRadioButton.Text;
+                }
+                registerPanel2.Visible = false;
+                registerPanel3.Visible = true;
+            }
         }
         private void nextButton3_Click(object sender, EventArgs e)
         {
@@ -110,16 +142,19 @@ namespace FormRegLogin
         }
         private void nextButton4_Click(object sender, EventArgs e)
         {
-            if(registerPasswordTextBox.Text == "!" || registerPasswordTextBox.Text == "-" || registerPasswordTextBox.Text == "+" || registerPasswordTextBox.Text == "")
-            {
-                MessageBox.Show("Пароль повинен мати");
-            }
-            else 
+            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$";
+            if (Regex.IsMatch(passwordInput, pattern))
             {
                 passwordInput = registerPasswordTextBox.Text;
+
                 registerPanel4.Visible = false;
                 registerPanel5.Visible = true;
             }
+            else
+            {
+                MessageBox.Show("Пароль не задовільняє вимоги.");
+            }
+
         }
         private void registerManRadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -218,6 +253,21 @@ namespace FormRegLogin
             registerPanel1.Visible = false;
             loginPanel.Visible = true;
             registerButton.Visible = true;
+        }
+
+        private void registerNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registerDayNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void privacyAndTermsLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
