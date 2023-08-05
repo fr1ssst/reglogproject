@@ -26,6 +26,11 @@ namespace FormRegLogin
         {
 
         }
+        /// 
+        /// 
+        /// Bool
+        /// 
+        /// 
         private bool IsTextBoxEmptyOrWhiteSpace(TextBox textBox)
         {
             return string.IsNullOrWhiteSpace(textBox.Text);
@@ -35,6 +40,45 @@ namespace FormRegLogin
         {
             return textBox.Text.Contains(" ");
         }
+        ///
+        /// Main menu (Panel, Button)
+        /// 
+        private void loginPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            registerPanel1.Visible = true;
+            loginButton2.Visible = true;
+            loginPanel.Visible = false;
+            registerButton.Visible = false;
+        }
+        private void loginButton2_Click(object sender, EventArgs e)
+        {
+            registerNameTextBox.Clear();
+            registerSurnameTextBox.Clear();
+            registerMailTextBox.Clear();
+            registerPasswordTextBox.Clear();
+            registerPhoneTextBox.Clear();
+
+            loginButton2.Visible = false;
+            registerPanel1.Visible = false;
+            registerPanel2.Visible = false;
+            registerPanel3.Visible = false;
+            registerPanel4.Visible = false;
+            registerPanel5.Visible = false;
+            privacyAndTermsPanel.Visible = false;
+            //endRegisterPanel.Visible = false;
+
+            loginPanel.Visible = true;
+            registerButton.Visible = true;
+        }
+        /// 
+        /// 
+        /// LoginUser
+        /// 
+        /// 
         private void passwordWrite_TextChanged(object sender, EventArgs e)
         {
 
@@ -44,7 +88,6 @@ namespace FormRegLogin
         {
 
         }
-
         private void showHideCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             passwordWrite.UseSystemPasswordChar = !showHideCheckBox.Checked;
@@ -77,15 +120,13 @@ namespace FormRegLogin
                 MessageBox.Show("Невірний пароль чи логін");
             }
         }
-
-        private void registerPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         ///
+        /// 
+        /// RegisterUser
+        /// 
+        /// 
         ///
         /// Next button in register panel
-        /// 
         ///  
         private void nextButton1_Click(object sender, EventArgs e)
         {
@@ -114,12 +155,12 @@ namespace FormRegLogin
             }
             else 
             {
-                int dayInput = (int)registerDayNumericUpDown.Value;
+                /*int dayInput = (int)registerDayNumericUpDown.Value;
                 int monthInput = (int)registerMonthNumericUpDown.Value;
                 int yearInput = (int)registerYearNumericUpDown.Value;
 
                 DateTime date1 = new DateTime(yearInput, monthInput, dayInput);
-                DateTime dateOnly = date1.Date;
+                DateTime dateOnly = date1.Date;*/
 
                 if (registerManRadioButton.Checked)
                 {
@@ -142,7 +183,9 @@ namespace FormRegLogin
         }
         private void nextButton4_Click(object sender, EventArgs e)
         {
-            string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$";
+            registerPanel4.Visible = false;
+            registerPanel5.Visible = true;
+            /*string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$";
             if (Regex.IsMatch(passwordInput, pattern))
             {
                 passwordInput = registerPasswordTextBox.Text;
@@ -153,45 +196,170 @@ namespace FormRegLogin
             else
             {
                 MessageBox.Show("Пароль не задовільняє вимоги.");
+            }*/
+        }
+        private void nextButton5_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(registerPhoneTextBox.Text, out int phoneInputSave))
+            {
+                phoneInput = phoneInputSave;
+                registerPanel5.Visible = false;
+                privacyAndTermsPanel.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Невірний формат числа.");
+            }
+        }
+        private void endRegisterButton_Click_1(object sender, EventArgs e)
+        {
+            DataBase dataBase = new DataBase();
+            MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `sex`, `email`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug, @sexPlug, @emailPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
+            //MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `email`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug,@emailPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
+
+            mySqlCommand.Parameters.Add("@namePlug", MySqlDbType.VarChar).Value = registerNameTextBox.Text;
+            mySqlCommand.Parameters.Add("@surnamePlug", MySqlDbType.VarChar).Value = registerSurnameTextBox.Text;
+
+            mySqlCommand.Parameters.Add("@dateOfBirthPlug", MySqlDbType.Date).Value = registerDateTimePicker.Value;
+            mySqlCommand.Parameters.Add("@sexPlug", MySqlDbType.VarChar).Value = registerManRadioButton.Text;
+            mySqlCommand.Parameters.Add("@emailPlug", MySqlDbType.VarChar).Value = registerMailTextBox.Text;
+            mySqlCommand.Parameters.Add("@passwordPlug", MySqlDbType.VarChar).Value = registerPasswordTextBox.Text;
+            mySqlCommand.Parameters.Add("@telephonePlug", MySqlDbType.Int32).Value = registerPhoneTextBox.Text;
+
+            dataBase.openConnection();
+
+            if (mySqlCommand.ExecuteNonQuery() == 1) 
+            {
+                MessageBox.Show("Реєстрація була успішною!");
+            }
+            else 
+            {
+                MessageBox.Show("Реєстрація була не виконана!");
             }
 
-        }
-        private void registerManRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
+            dataBase.closedConnection();
 
-        }
 
-        private void registerSexGroupBox_Enter(object sender, EventArgs e)
-        {
 
-        }
-
-        private void registerMailTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void registerPasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void endRegisterButton_Click(object sender, EventArgs e)
-        {
             progressValue = 0;
+            endRegisterPanel.Visible = true;
             registerProgressBar.Visible = true;
             progressTimer.Start();
 
             endRegisterButton.Visible = false;
+            privacyAndTermsPanel.Visible = false;
+            loginButton2.Visible = false;
+        }
+        ///
+        /// TextBox in register panel
+        /// 
+        private void registerNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerSurnameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerMailTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerPasswordTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerPhoneTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        ///
+        /// LableLink in register panel
+        /// 
+        private void privacyAndTermsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+        ///
+        /// RadioButton in register panel
+        /// 
+        private void registerManRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerWomanRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        ///
+        /// NumericUpDown in register panel
+        /// 
+        private void registerDayNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerMonthNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void registerYearNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        ///
+        /// GroupBox in register panel
+        /// 
+        private void registerSexGroupBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+        ///
+        /// Panel in register panel
+        /// 
+        private void registerPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
+        private void registerPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void registerPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void registerPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void registerPanel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void privacyAndTermsPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void endRegisterPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        ///
+        ///
+        /// Components
+        /// 
+        /// 
         private void progressTimer_Tick(object sender, EventArgs e)
         {
             if (progressValue >= registerProgressBar.Maximum)
             {
                 progressTimer.Stop();
                 endRegisterPanel.Visible = false;
-                registerProgressBar.Visible = false;       
+                registerProgressBar.Visible = false;
             }
             else
             {
@@ -200,72 +368,7 @@ namespace FormRegLogin
             }
         }
 
-        private void nextButton5_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(registerPhoneTextBox.Text, out int phoneInputSave))
-            {
-                phoneInput = phoneInputSave;
-                registerPanel5.Visible = false;
-                endRegisterPanel.Visible = true;
-            }
-            else
-            {
-                MessageBox.Show("Невірний формат числа.");
-            }
-        }
-
-        private void registerPhoneTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void registerDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void loginGroupBox_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void loginPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void registerButton_Click(object sender, EventArgs e)
-        {
-            registerPanel1.Visible = true;
-            loginButton2.Visible = true;
-            loginPanel.Visible = false;
-            registerButton.Visible = false;
-        }
-
-        private void loginButton2_Click(object sender, EventArgs e)
-        {
-            loginButton2.Visible = false;
-            registerPanel1.Visible = false;
-            loginPanel.Visible = true;
-            registerButton.Visible = true;
-        }
-
-        private void registerNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void registerDayNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void privacyAndTermsLabel_Click(object sender, EventArgs e)
         {
 
         }
