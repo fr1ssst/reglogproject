@@ -2,6 +2,8 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using BCrypt.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace FormRegLogin
 {
@@ -11,10 +13,9 @@ namespace FormRegLogin
         private string nameInput = "";
         private string surnameInput = "";
         private string userChoice = "";
-        private string mailInput = "";
+        private string loginInput = "";
         private string passwordInput = "";
-        private int phoneInput = 0;
-
+        private int phoneInput = 0; 
 
         private int progressValue = 0;
         public Form1()
@@ -28,7 +29,7 @@ namespace FormRegLogin
         }
         /// 
         /// 
-        /// Bool
+        /// Bool Options
         /// 
         /// 
         private bool IsTextBoxEmptyOrWhiteSpace(TextBox textBox)
@@ -58,7 +59,7 @@ namespace FormRegLogin
         {
             registerNameTextBox.Clear();
             registerSurnameTextBox.Clear();
-            registerMailTextBox.Clear();
+            registerLoginTextBox.Clear();
             registerPasswordTextBox.Clear();
             registerPhoneTextBox.Clear();
 
@@ -95,30 +96,54 @@ namespace FormRegLogin
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            String loginUser = loginWrite.Text;
-            String passwordUser = passwordWrite.Text;
-
             DataBase dataBase = new DataBase();
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
+            
+            string loginUser = loginWrite.Text;
+            string passwordUser = passwordWrite.Text;
 
-            MySqlCommand command= new MySqlCommand("SELECT * FROM `users` WHERE `email` = @lU AND `password` = @pU", dataBase.getConnection());
-            command.Parameters.Add("@lU", MySqlDbType.VarChar).Value = loginUser;
-            command.Parameters.Add("@pU", MySqlDbType.VarChar).Value = passwordUser;
+            string hashedPasswordFromDatabase = GetHashedPasswordFromDatabase(loginUser);
 
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
 
-            if (table.Rows.Count > 0)
+            if (!string.IsNullOrEmpty(hashedPasswordFromDatabase))
             {
-                MessageBox.Show($"Вхід у користувача {loginUser}");
-                loginPanel.Visible = false;
+                // Порівнюємо хеші
+                bool passwordMatches = BCrypt.Net.BCrypt.Verify(passwordUser, hashedPasswordFromDatabase);
 
+                if (passwordMatches)
+                {
+                    MessageBox.Show("Вхід виконано успішно.");
+                }
+                else
+                {
+                    MessageBox.Show("Пароль невірний.");
+                }
             }
-            else 
+            else
             {
-                MessageBox.Show("Невірний пароль чи логін");
+                MessageBox.Show("Користувача з таким ім'ям не знайдено.");
             }
+        }      
+        private string GetHashedPasswordFromDatabase(string loginUser)
+        {
+            DataBase dataBase = new DataBase();
+
+            dataBase.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT password FROM users WHERE email = @Username", dataBase.getConnection());
+            command.Parameters.AddWithValue("@Username", loginUser);
+
+            object result = command.ExecuteScalar();
+            if (result != null)
+            {
+                return result.ToString();
+            }
+            else
+            {
+                return null;
+            }
+            dataBase.closedConnection();
         }
         ///
         /// 
@@ -128,7 +153,7 @@ namespace FormRegLogin
         ///
         /// Next button in register panel
         ///  
-        private void nextButton1_Click(object sender, EventArgs e)
+        private void nextButton1_Click(object sender, EventArgs e) //Name and surname
         {
             if (IsTextBoxEmptyOrWhiteSpace(registerNameTextBox) || IsTextBoxEmptyOrWhiteSpace(registerSurnameTextBox))
             {
@@ -147,7 +172,7 @@ namespace FormRegLogin
                 registerPanel2.Visible = true;
             }
         }
-        private void nextButton2_Click(object sender, EventArgs e)
+        private void nextButton2_Click(object sender, EventArgs e) //userSex
         {
             if (!registerManRadioButton.Checked && !registerWomanRadioButton.Checked) 
             {
@@ -161,6 +186,7 @@ namespace FormRegLogin
 
                 DateTime date1 = new DateTime(yearInput, monthInput, dayInput);
                 DateTime dateOnly = date1.Date;*/
+                selectedDate = registerDateTimePicker.Value;
 
                 if (registerManRadioButton.Checked)
                 {
@@ -170,21 +196,65 @@ namespace FormRegLogin
                 {
                     userChoice = registerWomanRadioButton.Text;
                 }
+                else 
+                {
+                    MessageBox.Show("Виберіть стать.");
+                }
                 registerPanel2.Visible = false;
                 registerPanel3.Visible = true;
             }
         }
-        private void nextButton3_Click(object sender, EventArgs e)
+        private void nextButton3_Click(object sender, EventArgs e) //login
         {
-            mailInput = registerMailTextBox.Text;
+            DataBase dataBase = new DataBase();
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-            registerPanel3.Visible = false;
-            registerPanel4.Visible = true;
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `email` = @lU", dataBase.getConnection());
+            command.Parameters.Add("@lU", MySqlDbType.VarChar).Value = registerLoginTextBox.Text;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            if (table.Rows.Count > 0)
+            {
+                MessageBox.Show("Такий логін уже існує, введіть інший!");
+            }
+            else
+            {
+                if (IsTextBoxEmptyOrWhiteSpace(registerLoginTextBox))
+                {
+                    MessageBox.Show("Текст в цьому полі відсутній.");
+                }
+                else if (TextBoxContainsSpace(registerLoginTextBox))
+                {
+                    MessageBox.Show("Текст в цьому полі містить пробіли.");
+                }
+                else
+                {
+                    loginInput = registerLoginTextBox.Text;
+
+                    registerPanel3.Visible = false;
+                    registerPanel4.Visible = true;
+                }
+            }
         }
-        private void nextButton4_Click(object sender, EventArgs e)
+        private void nextButton4_Click(object sender, EventArgs e) //password
         {
-            registerPanel4.Visible = false;
-            registerPanel5.Visible = true;
+            if (IsTextBoxEmptyOrWhiteSpace(registerPasswordTextBox))
+            {
+                MessageBox.Show("Текст в цьому полі відсутній.");
+            }
+            else if (TextBoxContainsSpace(registerPasswordTextBox))
+            {
+                MessageBox.Show("Текст в цьому полі містить пробіли.");
+            }
+            else
+            {         
+                registerPanel4.Visible = false;
+                registerPanel5.Visible = true;
+            }
+
             /*string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$";
             if (Regex.IsMatch(passwordInput, pattern))
             {
@@ -198,7 +268,7 @@ namespace FormRegLogin
                 MessageBox.Show("Пароль не задовільняє вимоги.");
             }*/
         }
-        private void nextButton5_Click(object sender, EventArgs e)
+        private void nextButton5_Click(object sender, EventArgs e) //phone
         {
             if (int.TryParse(registerPhoneTextBox.Text, out int phoneInputSave))
             {
@@ -211,22 +281,46 @@ namespace FormRegLogin
                 MessageBox.Show("Невірний формат числа.");
             }
         }
-        private void endRegisterButton_Click_1(object sender, EventArgs e)
+        private void endRegisterButton_Click_1(object sender, EventArgs e) //end
         {
             DataBase dataBase = new DataBase();
+
+            nameInput = registerNameTextBox.Text;
+            surnameInput = registerSurnameTextBox.Text;
+            loginInput = registerLoginTextBox.Text;
+            passwordInput = registerPasswordTextBox.Text;
+
+            string salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordInput, salt);
+
             MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `sex`, `email`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug, @sexPlug, @emailPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
-            //MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `email`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug,@emailPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
 
-            mySqlCommand.Parameters.Add("@namePlug", MySqlDbType.VarChar).Value = registerNameTextBox.Text;
-            mySqlCommand.Parameters.Add("@surnamePlug", MySqlDbType.VarChar).Value = registerSurnameTextBox.Text;
+            mySqlCommand.Parameters.AddWithValue("@namePlug", nameInput);
+            mySqlCommand.Parameters.AddWithValue("@surnamePlug", surnameInput);          
 
-            mySqlCommand.Parameters.Add("@dateOfBirthPlug", MySqlDbType.Date).Value = registerDateTimePicker.Value;
-            mySqlCommand.Parameters.Add("@sexPlug", MySqlDbType.VarChar).Value = registerManRadioButton.Text;
-            mySqlCommand.Parameters.Add("@emailPlug", MySqlDbType.VarChar).Value = registerMailTextBox.Text;
-            mySqlCommand.Parameters.Add("@passwordPlug", MySqlDbType.VarChar).Value = registerPasswordTextBox.Text;
-            mySqlCommand.Parameters.Add("@telephonePlug", MySqlDbType.Int32).Value = registerPhoneTextBox.Text;
+            if (registerManRadioButton.Checked)
+            {
+                mySqlCommand.Parameters.AddWithValue("@sexPlug", userChoice);             
+            }
+            else if (registerWomanRadioButton.Checked)
+            {
+                mySqlCommand.Parameters.AddWithValue("@sexPlug", userChoice);                
+            }
+
+            mySqlCommand.Parameters.Add("@dateOfBirthPlug", MySqlDbType.Date).Value = registerDateTimePicker.Value;         
+            mySqlCommand.Parameters.AddWithValue("@emailPlug", loginInput);
+            mySqlCommand.Parameters.AddWithValue("@passwordPlug", hashedPassword);
+            mySqlCommand.Parameters.Add("@telephonePlug", MySqlDbType.Int32).Value = registerPhoneTextBox.Text;      
 
             dataBase.openConnection();
+            progressValue = 0;
+
+            privacyAndTermsPanel.Visible = false;
+            loginButton2.Visible = false;
+
+            progressTimer.Start();
+            endRegisterPanel.Visible = true;
+            registerProgressBar.Visible = true;
 
             if (mySqlCommand.ExecuteNonQuery() == 1) 
             {
@@ -235,20 +329,10 @@ namespace FormRegLogin
             else 
             {
                 MessageBox.Show("Реєстрація була не виконана!");
+                return;
             }
 
             dataBase.closedConnection();
-
-
-
-            progressValue = 0;
-            endRegisterPanel.Visible = true;
-            registerProgressBar.Visible = true;
-            progressTimer.Start();
-
-            endRegisterButton.Visible = false;
-            privacyAndTermsPanel.Visible = false;
-            loginButton2.Visible = false;
         }
         ///
         /// TextBox in register panel
@@ -261,7 +345,7 @@ namespace FormRegLogin
         {
 
         }
-        private void registerMailTextBox_TextChanged(object sender, EventArgs e)
+        private void registerLoginTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -369,6 +453,11 @@ namespace FormRegLogin
         }
 
         private void registerDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registerProgressBar_Click(object sender, EventArgs e)
         {
 
         }

@@ -38,3 +38,4 @@ D:\VisiualCode\reglogproject\FormRegLogin\FormRegLogin\bin\Debug\net6.0-windows\
 D:\VisiualCode\reglogproject\FormRegLogin\FormRegLogin\obj\Debug\net6.0-windows\FormRegLogin.csproj.CopyComplete
 D:\VisiualCode\reglogproject\FormRegLogin\FormRegLogin\obj\Debug\net6.0-windows\FormRegLogin.genruntimeconfig.cache
 D:\VisiualCode\reglogproject\FormRegLogin\FormRegLogin\obj\Debug\net6.0-windows\ref\FormRegLogin.dll
+D:\VisiualCode\reglogproject\FormRegLogin\FormRegLogin\bin\Debug\net6.0-windows\BCrypt.Net.dll

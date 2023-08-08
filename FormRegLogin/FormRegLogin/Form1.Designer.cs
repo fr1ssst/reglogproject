@@ -41,17 +41,15 @@
             this.registerSexGroupBox = new System.Windows.Forms.GroupBox();
             this.registerWomanRadioButton = new System.Windows.Forms.RadioButton();
             this.nextButton3 = new System.Windows.Forms.Button();
-            this.registerMailTextBox = new System.Windows.Forms.TextBox();
             this.registerPasswordTextBox = new System.Windows.Forms.TextBox();
             this.nextButton4 = new System.Windows.Forms.Button();
             this.registerProgressBar = new System.Windows.Forms.ProgressBar();
             this.progressTimer = new System.Windows.Forms.Timer(this.components);
             this.registerPanel1 = new System.Windows.Forms.Panel();
             this.registerPanel2 = new System.Windows.Forms.Panel();
-            this.registerYearNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.registerMonthNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.registerDayNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.registerDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.registerPanel3 = new System.Windows.Forms.Panel();
+            this.registerLoginTextBox = new System.Windows.Forms.TextBox();
             this.registerPanel4 = new System.Windows.Forms.Panel();
             this.registerPhoneTextBox = new System.Windows.Forms.TextBox();
             this.registerPanel5 = new System.Windows.Forms.Panel();
@@ -65,13 +63,9 @@
             this.privacyAndTermsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.endRegisterButton = new System.Windows.Forms.Button();
             this.privacyAndTermsPanel = new System.Windows.Forms.Panel();
-            this.registerDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.registerSexGroupBox.SuspendLayout();
             this.registerPanel1.SuspendLayout();
             this.registerPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.registerYearNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.registerMonthNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.registerDayNumericUpDown)).BeginInit();
             this.registerPanel3.SuspendLayout();
             this.registerPanel4.SuspendLayout();
             this.registerPanel5.SuspendLayout();
@@ -195,7 +189,7 @@
             // 
             // nextButton3
             // 
-            this.nextButton3.Location = new System.Drawing.Point(109, 49);
+            this.nextButton3.Location = new System.Drawing.Point(122, 53);
             this.nextButton3.Name = "nextButton3";
             this.nextButton3.Size = new System.Drawing.Size(75, 23);
             this.nextButton3.TabIndex = 10;
@@ -203,21 +197,12 @@
             this.nextButton3.UseVisualStyleBackColor = true;
             this.nextButton3.Click += new System.EventHandler(this.nextButton3_Click);
             // 
-            // registerMailTextBox
-            // 
-            this.registerMailTextBox.Location = new System.Drawing.Point(3, 3);
-            this.registerMailTextBox.Name = "registerMailTextBox";
-            this.registerMailTextBox.PlaceholderText = "Ім\'я користувача";
-            this.registerMailTextBox.Size = new System.Drawing.Size(181, 23);
-            this.registerMailTextBox.TabIndex = 11;
-            this.registerMailTextBox.TextChanged += new System.EventHandler(this.registerMailTextBox_TextChanged);
-            // 
             // registerPasswordTextBox
             // 
             this.registerPasswordTextBox.Location = new System.Drawing.Point(3, 3);
             this.registerPasswordTextBox.Name = "registerPasswordTextBox";
             this.registerPasswordTextBox.PlaceholderText = "Пароль";
-            this.registerPasswordTextBox.Size = new System.Drawing.Size(137, 23);
+            this.registerPasswordTextBox.Size = new System.Drawing.Size(222, 23);
             this.registerPasswordTextBox.TabIndex = 12;
             this.registerPasswordTextBox.UseSystemPasswordChar = true;
             this.registerPasswordTextBox.TextChanged += new System.EventHandler(this.registerPasswordTextBox_TextChanged);
@@ -238,6 +223,7 @@
             this.registerProgressBar.Name = "registerProgressBar";
             this.registerProgressBar.Size = new System.Drawing.Size(262, 23);
             this.registerProgressBar.TabIndex = 16;
+            this.registerProgressBar.Click += new System.EventHandler(this.registerProgressBar_Click);
             // 
             // progressTimer
             // 
@@ -267,85 +253,33 @@
             this.registerPanel2.Visible = false;
             this.registerPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.registerPanel2_Paint);
             // 
-            // registerYearNumericUpDown
+            // registerDateTimePicker
             // 
-            this.registerYearNumericUpDown.Location = new System.Drawing.Point(331, 549);
-            this.registerYearNumericUpDown.Maximum = new decimal(new int[] {
-            2023,
-            0,
-            0,
-            0});
-            this.registerYearNumericUpDown.Minimum = new decimal(new int[] {
-            1920,
-            0,
-            0,
-            0});
-            this.registerYearNumericUpDown.Name = "registerYearNumericUpDown";
-            this.registerYearNumericUpDown.Size = new System.Drawing.Size(120, 23);
-            this.registerYearNumericUpDown.TabIndex = 29;
-            this.registerYearNumericUpDown.Value = new decimal(new int[] {
-            1920,
-            0,
-            0,
-            0});
-            this.registerYearNumericUpDown.ValueChanged += new System.EventHandler(this.registerYearNumericUpDown_ValueChanged);
-            // 
-            // registerMonthNumericUpDown
-            // 
-            this.registerMonthNumericUpDown.Location = new System.Drawing.Point(331, 520);
-            this.registerMonthNumericUpDown.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.registerMonthNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.registerMonthNumericUpDown.Name = "registerMonthNumericUpDown";
-            this.registerMonthNumericUpDown.Size = new System.Drawing.Size(120, 23);
-            this.registerMonthNumericUpDown.TabIndex = 30;
-            this.registerMonthNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.registerMonthNumericUpDown.ValueChanged += new System.EventHandler(this.registerMonthNumericUpDown_ValueChanged);
-            // 
-            // registerDayNumericUpDown
-            // 
-            this.registerDayNumericUpDown.Location = new System.Drawing.Point(331, 491);
-            this.registerDayNumericUpDown.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.registerDayNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.registerDayNumericUpDown.Name = "registerDayNumericUpDown";
-            this.registerDayNumericUpDown.Size = new System.Drawing.Size(120, 23);
-            this.registerDayNumericUpDown.TabIndex = 27;
-            this.registerDayNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.registerDayNumericUpDown.ValueChanged += new System.EventHandler(this.registerDayNumericUpDown_ValueChanged);
+            this.registerDateTimePicker.Location = new System.Drawing.Point(10, 32);
+            this.registerDateTimePicker.Name = "registerDateTimePicker";
+            this.registerDateTimePicker.Size = new System.Drawing.Size(200, 23);
+            this.registerDateTimePicker.TabIndex = 32;
+            this.registerDateTimePicker.ValueChanged += new System.EventHandler(this.registerDateTimePicker_ValueChanged);
             // 
             // registerPanel3
             // 
+            this.registerPanel3.Controls.Add(this.registerLoginTextBox);
             this.registerPanel3.Controls.Add(this.nextButton3);
-            this.registerPanel3.Controls.Add(this.registerMailTextBox);
             this.registerPanel3.Location = new System.Drawing.Point(12, 356);
             this.registerPanel3.Name = "registerPanel3";
             this.registerPanel3.Size = new System.Drawing.Size(239, 100);
             this.registerPanel3.TabIndex = 19;
             this.registerPanel3.Visible = false;
             this.registerPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.registerPanel3_Paint);
+            // 
+            // registerLoginTextBox
+            // 
+            this.registerLoginTextBox.Location = new System.Drawing.Point(3, 14);
+            this.registerLoginTextBox.Name = "registerLoginTextBox";
+            this.registerLoginTextBox.PlaceholderText = "Логін (адреса електронної пошти)";
+            this.registerLoginTextBox.Size = new System.Drawing.Size(222, 23);
+            this.registerLoginTextBox.TabIndex = 11;
+            this.registerLoginTextBox.TextChanged += new System.EventHandler(this.registerLoginTextBox_TextChanged);
             // 
             // registerPanel4
             // 
@@ -486,25 +420,14 @@
             this.privacyAndTermsPanel.Visible = false;
             this.privacyAndTermsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.privacyAndTermsPanel_Paint);
             // 
-            // registerDateTimePicker
-            // 
-            this.registerDateTimePicker.Location = new System.Drawing.Point(10, 32);
-            this.registerDateTimePicker.Name = "registerDateTimePicker";
-            this.registerDateTimePicker.Size = new System.Drawing.Size(200, 23);
-            this.registerDateTimePicker.TabIndex = 32;
-            this.registerDateTimePicker.ValueChanged += new System.EventHandler(this.registerDateTimePicker_ValueChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 719);
-            this.Controls.Add(this.registerYearNumericUpDown);
-            this.Controls.Add(this.registerMonthNumericUpDown);
             this.Controls.Add(this.privacyAndTermsPanel);
             this.Controls.Add(this.loginButton2);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.registerDayNumericUpDown);
             this.Controls.Add(this.registerPanel4);
             this.Controls.Add(this.registerPanel3);
             this.Controls.Add(this.loginPanel);
@@ -520,9 +443,6 @@
             this.registerPanel1.ResumeLayout(false);
             this.registerPanel1.PerformLayout();
             this.registerPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.registerYearNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.registerMonthNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.registerDayNumericUpDown)).EndInit();
             this.registerPanel3.ResumeLayout(false);
             this.registerPanel3.PerformLayout();
             this.registerPanel4.ResumeLayout(false);
@@ -552,7 +472,6 @@
         private GroupBox registerSexGroupBox;
         private RadioButton registerWomanRadioButton;
         private Button nextButton3;
-        private TextBox registerMailTextBox;
         private TextBox registerPasswordTextBox;
         private Button nextButton4;
         private ProgressBar registerProgressBar;
@@ -568,14 +487,12 @@
         private Panel loginPanel;
         private Button registerButton;
         private Button loginButton2;
-        private NumericUpDown registerDayNumericUpDown;
-        private NumericUpDown registerYearNumericUpDown;
-        private NumericUpDown registerMonthNumericUpDown;
         private Label privacyAndTermsLabel;
         private Label privacyAndTermsLabel2;
         private LinkLabel privacyAndTermsLinkLabel;
         private Button endRegisterButton;
         private Panel privacyAndTermsPanel;
         private DateTimePicker registerDateTimePicker;
+        private TextBox registerLoginTextBox;
     }
 }
