@@ -51,6 +51,7 @@
             this.registerPanel3 = new System.Windows.Forms.Panel();
             this.registerLoginTextBox = new System.Windows.Forms.TextBox();
             this.registerPanel4 = new System.Windows.Forms.Panel();
+            this.showHideCheckBox2 = new System.Windows.Forms.CheckBox();
             this.registerPhoneTextBox = new System.Windows.Forms.TextBox();
             this.registerPanel5 = new System.Windows.Forms.Panel();
             this.nextButton5 = new System.Windows.Forms.Button();
@@ -63,6 +64,16 @@
             this.privacyAndTermsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.endRegisterButton = new System.Windows.Forms.Button();
             this.privacyAndTermsPanel = new System.Windows.Forms.Panel();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.userSurnameLabel = new System.Windows.Forms.Label();
+            this.userDateOfBirthLabel = new System.Windows.Forms.Label();
+            this.userSexLabel = new System.Windows.Forms.Label();
+            this.userLoginLabel = new System.Windows.Forms.Label();
+            this.userPasswordLabel = new System.Windows.Forms.Label();
+            this.userPhoneLabel = new System.Windows.Forms.Label();
+            this.userInformationsPanel = new System.Windows.Forms.Panel();
+            this.userIdLabel = new System.Windows.Forms.Label();
+            this.changeNameButton = new System.Windows.Forms.Button();
             this.registerSexGroupBox.SuspendLayout();
             this.registerPanel1.SuspendLayout();
             this.registerPanel2.SuspendLayout();
@@ -72,6 +83,7 @@
             this.endRegisterPanel.SuspendLayout();
             this.loginPanel.SuspendLayout();
             this.privacyAndTermsPanel.SuspendLayout();
+            this.userInformationsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // passwordWrite
@@ -202,7 +214,7 @@
             this.registerPasswordTextBox.Location = new System.Drawing.Point(3, 3);
             this.registerPasswordTextBox.Name = "registerPasswordTextBox";
             this.registerPasswordTextBox.PlaceholderText = "Пароль";
-            this.registerPasswordTextBox.Size = new System.Drawing.Size(222, 23);
+            this.registerPasswordTextBox.Size = new System.Drawing.Size(219, 23);
             this.registerPasswordTextBox.TabIndex = 12;
             this.registerPasswordTextBox.UseSystemPasswordChar = true;
             this.registerPasswordTextBox.TextChanged += new System.EventHandler(this.registerPasswordTextBox_TextChanged);
@@ -283,6 +295,7 @@
             // 
             // registerPanel4
             // 
+            this.registerPanel4.Controls.Add(this.showHideCheckBox2);
             this.registerPanel4.Controls.Add(this.registerPasswordTextBox);
             this.registerPanel4.Controls.Add(this.nextButton4);
             this.registerPanel4.Location = new System.Drawing.Point(12, 468);
@@ -291,6 +304,16 @@
             this.registerPanel4.TabIndex = 20;
             this.registerPanel4.Visible = false;
             this.registerPanel4.Paint += new System.Windows.Forms.PaintEventHandler(this.registerPanel4_Paint);
+            // 
+            // showHideCheckBox2
+            // 
+            this.showHideCheckBox2.AutoSize = true;
+            this.showHideCheckBox2.Location = new System.Drawing.Point(224, 11);
+            this.showHideCheckBox2.Name = "showHideCheckBox2";
+            this.showHideCheckBox2.Size = new System.Drawing.Size(15, 14);
+            this.showHideCheckBox2.TabIndex = 14;
+            this.showHideCheckBox2.UseVisualStyleBackColor = true;
+            this.showHideCheckBox2.CheckedChanged += new System.EventHandler(this.showHideCheckBox2_CheckedChanged);
             // 
             // registerPhoneTextBox
             // 
@@ -325,7 +348,7 @@
             // endRegisterPanel
             // 
             this.endRegisterPanel.Controls.Add(this.registerProgressBar);
-            this.endRegisterPanel.Location = new System.Drawing.Point(683, 500);
+            this.endRegisterPanel.Location = new System.Drawing.Point(399, 607);
             this.endRegisterPanel.Name = "endRegisterPanel";
             this.endRegisterPanel.Size = new System.Drawing.Size(268, 100);
             this.endRegisterPanel.TabIndex = 23;
@@ -413,18 +436,128 @@
             this.privacyAndTermsPanel.Controls.Add(this.privacyAndTermsLabel);
             this.privacyAndTermsPanel.Controls.Add(this.endRegisterButton);
             this.privacyAndTermsPanel.Controls.Add(this.privacyAndTermsLabel2);
-            this.privacyAndTermsPanel.Location = new System.Drawing.Point(318, 132);
+            this.privacyAndTermsPanel.Location = new System.Drawing.Point(315, 390);
             this.privacyAndTermsPanel.Name = "privacyAndTermsPanel";
             this.privacyAndTermsPanel.Size = new System.Drawing.Size(460, 210);
             this.privacyAndTermsPanel.TabIndex = 31;
             this.privacyAndTermsPanel.Visible = false;
             this.privacyAndTermsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.privacyAndTermsPanel_Paint);
             // 
+            // userNameLabel
+            // 
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userNameLabel.Location = new System.Drawing.Point(17, 41);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(38, 20);
+            this.userNameLabel.TabIndex = 32;
+            this.userNameLabel.Text = "Ім\'я:";
+            this.userNameLabel.Click += new System.EventHandler(this.userNameLabel_Click);
+            // 
+            // userSurnameLabel
+            // 
+            this.userSurnameLabel.AutoSize = true;
+            this.userSurnameLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userSurnameLabel.Location = new System.Drawing.Point(17, 72);
+            this.userSurnameLabel.Name = "userSurnameLabel";
+            this.userSurnameLabel.Size = new System.Drawing.Size(80, 20);
+            this.userSurnameLabel.TabIndex = 33;
+            this.userSurnameLabel.Text = "Прізвище:";
+            // 
+            // userDateOfBirthLabel
+            // 
+            this.userDateOfBirthLabel.AutoSize = true;
+            this.userDateOfBirthLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userDateOfBirthLabel.Location = new System.Drawing.Point(17, 102);
+            this.userDateOfBirthLabel.Name = "userDateOfBirthLabel";
+            this.userDateOfBirthLabel.Size = new System.Drawing.Size(136, 20);
+            this.userDateOfBirthLabel.TabIndex = 34;
+            this.userDateOfBirthLabel.Text = "Дата народження:";
+            // 
+            // userSexLabel
+            // 
+            this.userSexLabel.AutoSize = true;
+            this.userSexLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userSexLabel.Location = new System.Drawing.Point(17, 134);
+            this.userSexLabel.Name = "userSexLabel";
+            this.userSexLabel.Size = new System.Drawing.Size(49, 20);
+            this.userSexLabel.TabIndex = 35;
+            this.userSexLabel.Text = "Стать:";
+            // 
+            // userLoginLabel
+            // 
+            this.userLoginLabel.AutoSize = true;
+            this.userLoginLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userLoginLabel.Location = new System.Drawing.Point(17, 169);
+            this.userLoginLabel.Name = "userLoginLabel";
+            this.userLoginLabel.Size = new System.Drawing.Size(50, 20);
+            this.userLoginLabel.TabIndex = 36;
+            this.userLoginLabel.Text = "Логін:";
+            this.userLoginLabel.Click += new System.EventHandler(this.userLoginLabel_Click);
+            // 
+            // userPasswordLabel
+            // 
+            this.userPasswordLabel.AutoSize = true;
+            this.userPasswordLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userPasswordLabel.Location = new System.Drawing.Point(17, 205);
+            this.userPasswordLabel.Name = "userPasswordLabel";
+            this.userPasswordLabel.Size = new System.Drawing.Size(65, 20);
+            this.userPasswordLabel.TabIndex = 37;
+            this.userPasswordLabel.Text = "Пароль:";
+            // 
+            // userPhoneLabel
+            // 
+            this.userPhoneLabel.AutoSize = true;
+            this.userPhoneLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userPhoneLabel.Location = new System.Drawing.Point(17, 238);
+            this.userPhoneLabel.Name = "userPhoneLabel";
+            this.userPhoneLabel.Size = new System.Drawing.Size(130, 20);
+            this.userPhoneLabel.TabIndex = 38;
+            this.userPhoneLabel.Text = "Номер телефона:";
+            // 
+            // userInformationsPanel
+            // 
+            this.userInformationsPanel.Controls.Add(this.changeNameButton);
+            this.userInformationsPanel.Controls.Add(this.userIdLabel);
+            this.userInformationsPanel.Controls.Add(this.userNameLabel);
+            this.userInformationsPanel.Controls.Add(this.userPhoneLabel);
+            this.userInformationsPanel.Controls.Add(this.userSurnameLabel);
+            this.userInformationsPanel.Controls.Add(this.userPasswordLabel);
+            this.userInformationsPanel.Controls.Add(this.userDateOfBirthLabel);
+            this.userInformationsPanel.Controls.Add(this.userLoginLabel);
+            this.userInformationsPanel.Controls.Add(this.userSexLabel);
+            this.userInformationsPanel.Location = new System.Drawing.Point(304, 31);
+            this.userInformationsPanel.Name = "userInformationsPanel";
+            this.userInformationsPanel.Size = new System.Drawing.Size(455, 353);
+            this.userInformationsPanel.TabIndex = 39;
+            this.userInformationsPanel.Visible = false;
+            this.userInformationsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.userInformationsPanel_Paint);
+            // 
+            // userIdLabel
+            // 
+            this.userIdLabel.AutoSize = true;
+            this.userIdLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userIdLabel.Location = new System.Drawing.Point(17, 10);
+            this.userIdLabel.Name = "userIdLabel";
+            this.userIdLabel.Size = new System.Drawing.Size(74, 20);
+            this.userIdLabel.TabIndex = 40;
+            this.userIdLabel.Text = "Ваш айді:";
+            // 
+            // changeNameButton
+            // 
+            this.changeNameButton.Location = new System.Drawing.Point(377, 41);
+            this.changeNameButton.Name = "changeNameButton";
+            this.changeNameButton.Size = new System.Drawing.Size(75, 23);
+            this.changeNameButton.TabIndex = 41;
+            this.changeNameButton.Text = "Змінити";
+            this.changeNameButton.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 719);
+            this.Controls.Add(this.userInformationsPanel);
             this.Controls.Add(this.privacyAndTermsPanel);
             this.Controls.Add(this.loginButton2);
             this.Controls.Add(this.registerButton);
@@ -454,6 +587,8 @@
             this.loginPanel.PerformLayout();
             this.privacyAndTermsPanel.ResumeLayout(false);
             this.privacyAndTermsPanel.PerformLayout();
+            this.userInformationsPanel.ResumeLayout(false);
+            this.userInformationsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -494,5 +629,16 @@
         private Panel privacyAndTermsPanel;
         private DateTimePicker registerDateTimePicker;
         private TextBox registerLoginTextBox;
+        private Label userNameLabel;
+        private Label userSurnameLabel;
+        private Label userDateOfBirthLabel;
+        private Label userSexLabel;
+        private Label userLoginLabel;
+        private Label userPasswordLabel;
+        private Label userPhoneLabel;
+        private Panel userInformationsPanel;
+        private Label userIdLabel;
+        private CheckBox showHideCheckBox2;
+        private Button changeNameButton;
     }
 }

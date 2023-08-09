@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using BCrypt.Net;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System;
 
 namespace FormRegLogin
 {
@@ -15,7 +16,16 @@ namespace FormRegLogin
         private string userChoice = "";
         private string loginInput = "";
         private string passwordInput = "";
-        private int phoneInput = 0; 
+        private int phoneInput = 0;
+
+        private string userIdInformation = "";
+        private string userNameInformation = "";
+        private string userSurnameInformation = "";
+        private string userDateInformation = "";
+        private string userSexInformation = "";
+        private string userLoginInformation = "";
+        private string userPasswordInformation = "";
+        private string userPhoneInformation = "";
 
         private int progressValue = 0;
         public Form1()
@@ -104,16 +114,22 @@ namespace FormRegLogin
             string passwordUser = passwordWrite.Text;
 
             string hashedPasswordFromDatabase = GetHashedPasswordFromDatabase(loginUser);
-
-
+            
             if (!string.IsNullOrEmpty(hashedPasswordFromDatabase))
             {
-                // Порівнюємо хеші
                 bool passwordMatches = BCrypt.Net.BCrypt.Verify(passwordUser, hashedPasswordFromDatabase);
 
                 if (passwordMatches)
                 {
                     MessageBox.Show("Вхід виконано успішно.");
+
+                    loginPanel.Visible = false;
+                    registerButton.Visible = false;
+                    loginButton2.Visible = false;
+
+                    userInformationsPanel.Visible = true;
+
+                    UserInfo(loginUser);
                 }
                 else
                 {
@@ -124,14 +140,48 @@ namespace FormRegLogin
             {
                 MessageBox.Show("Користувача з таким ім'ям не знайдено.");
             }
+            dataBase.closedConnection();
         }      
+        private void UserInfo(string loginUser)
+        {
+            DataBase dataBase = new DataBase();
+
+            dataBase.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE login = @l", dataBase.getConnection());
+            command.Parameters.AddWithValue("@l", loginUser);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                userIdInformation = $"Айді: {reader.GetInt32("id")}";
+                userNameInformation = $"Ім'я: {reader.GetString("name")}";
+                userSurnameInformation = $"Прізвище: {reader.GetString("surname")}";
+                userDateInformation = $"Дата народження: {reader.GetMySqlDateTime("dateOfBirth")}";
+                userSexInformation = $"Стать: {reader.GetString("sex")}";
+                userLoginInformation = $"Логін: {reader.GetString("login")}";
+                userPasswordInformation = $"Пароль: ********";
+                userPhoneInformation = $"Номер телефону: {reader.GetInt32("telephone")}";
+
+                userIdLabel.Text = userIdInformation;
+                userNameLabel.Text = userNameInformation;
+                userSurnameLabel.Text = userSurnameInformation;
+                userDateOfBirthLabel.Text = userDateInformation;
+                userSexLabel.Text = userSexInformation;
+                userLoginLabel.Text = userLoginInformation;
+                userPasswordLabel.Text = userPasswordInformation;
+                userPhoneLabel.Text = userPhoneInformation;
+            }
+            dataBase.closedConnection();
+        }
         private string GetHashedPasswordFromDatabase(string loginUser)
         {
             DataBase dataBase = new DataBase();
 
             dataBase.openConnection();
 
-            MySqlCommand command = new MySqlCommand("SELECT password FROM users WHERE email = @Username", dataBase.getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT password FROM users WHERE login = @Username", dataBase.getConnection());
             command.Parameters.AddWithValue("@Username", loginUser);
 
             object result = command.ExecuteScalar();
@@ -170,7 +220,7 @@ namespace FormRegLogin
 
                 registerPanel1.Visible = false;
                 registerPanel2.Visible = true;
-            }
+            }           
         }
         private void nextButton2_Click(object sender, EventArgs e) //userSex
         {
@@ -210,7 +260,7 @@ namespace FormRegLogin
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `email` = @lU", dataBase.getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `login` = @lU", dataBase.getConnection());
             command.Parameters.Add("@lU", MySqlDbType.VarChar).Value = registerLoginTextBox.Text;
 
             adapter.SelectCommand = command;
@@ -293,7 +343,7 @@ namespace FormRegLogin
             string salt = BCrypt.Net.BCrypt.GenerateSalt();
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordInput, salt);
 
-            MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `sex`, `email`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug, @sexPlug, @emailPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
+            MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO `users` (`name`, `surname`, `dateOfBirth`, `sex`, `login`, `password`, `telephone`) VALUES (@namePlug, @surnamePlug, @dateOfBirthPlug, @sexPlug, @loginPlug, @passwordPlug, @telephonePlug);", dataBase.getConnection());
 
             mySqlCommand.Parameters.AddWithValue("@namePlug", nameInput);
             mySqlCommand.Parameters.AddWithValue("@surnamePlug", surnameInput);          
@@ -308,7 +358,7 @@ namespace FormRegLogin
             }
 
             mySqlCommand.Parameters.Add("@dateOfBirthPlug", MySqlDbType.Date).Value = registerDateTimePicker.Value;         
-            mySqlCommand.Parameters.AddWithValue("@emailPlug", loginInput);
+            mySqlCommand.Parameters.AddWithValue("@loginPlug", loginInput);
             mySqlCommand.Parameters.AddWithValue("@passwordPlug", hashedPassword);
             mySqlCommand.Parameters.Add("@telephonePlug", MySqlDbType.Int32).Value = registerPhoneTextBox.Text;      
 
@@ -325,6 +375,9 @@ namespace FormRegLogin
             if (mySqlCommand.ExecuteNonQuery() == 1) 
             {
                 MessageBox.Show("Реєстрація була успішною!");
+                loginPanel.Visible = true;
+                loginButton2.Visible = true;
+                registerButton.Visible = true;
             }
             else 
             {
@@ -333,6 +386,10 @@ namespace FormRegLogin
             }
 
             dataBase.closedConnection();
+        }
+        private void showHideCheckBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            registerPasswordTextBox.UseSystemPasswordChar = !showHideCheckBox2.Checked;
         }
         ///
         /// TextBox in register panel
@@ -461,5 +518,27 @@ namespace FormRegLogin
         {
 
         }
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+
+        private void userNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userInformationsPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void userLoginLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
