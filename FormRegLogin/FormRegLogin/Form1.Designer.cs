@@ -72,8 +72,13 @@
             this.userPasswordLabel = new System.Windows.Forms.Label();
             this.userPhoneLabel = new System.Windows.Forms.Label();
             this.userInformationsPanel = new System.Windows.Forms.Panel();
-            this.userIdLabel = new System.Windows.Forms.Label();
+            this.changeSurnameTextBox = new System.Windows.Forms.TextBox();
+            this.changeSurnameButton = new System.Windows.Forms.Button();
+            this.changeNameTextBox = new System.Windows.Forms.TextBox();
             this.changeNameButton = new System.Windows.Forms.Button();
+            this.userIdLabel = new System.Windows.Forms.Label();
+            this.acceptChangeNameButton = new System.Windows.Forms.Button();
+            this.acceptChangeSurnameButton = new System.Windows.Forms.Button();
             this.registerSexGroupBox.SuspendLayout();
             this.registerPanel1.SuspendLayout();
             this.registerPanel2.SuspendLayout();
@@ -463,6 +468,7 @@
             this.userSurnameLabel.Size = new System.Drawing.Size(80, 20);
             this.userSurnameLabel.TabIndex = 33;
             this.userSurnameLabel.Text = "Прізвище:";
+            this.userSurnameLabel.Click += new System.EventHandler(this.userSurnameLabel_Click);
             // 
             // userDateOfBirthLabel
             // 
@@ -473,6 +479,7 @@
             this.userDateOfBirthLabel.Size = new System.Drawing.Size(136, 20);
             this.userDateOfBirthLabel.TabIndex = 34;
             this.userDateOfBirthLabel.Text = "Дата народження:";
+            this.userDateOfBirthLabel.Click += new System.EventHandler(this.userDateOfBirthLabel_Click);
             // 
             // userSexLabel
             // 
@@ -483,6 +490,7 @@
             this.userSexLabel.Size = new System.Drawing.Size(49, 20);
             this.userSexLabel.TabIndex = 35;
             this.userSexLabel.Text = "Стать:";
+            this.userSexLabel.Click += new System.EventHandler(this.userSexLabel_Click);
             // 
             // userLoginLabel
             // 
@@ -504,6 +512,7 @@
             this.userPasswordLabel.Size = new System.Drawing.Size(65, 20);
             this.userPasswordLabel.TabIndex = 37;
             this.userPasswordLabel.Text = "Пароль:";
+            this.userPasswordLabel.Click += new System.EventHandler(this.userPasswordLabel_Click);
             // 
             // userPhoneLabel
             // 
@@ -514,9 +523,13 @@
             this.userPhoneLabel.Size = new System.Drawing.Size(130, 20);
             this.userPhoneLabel.TabIndex = 38;
             this.userPhoneLabel.Text = "Номер телефона:";
+            this.userPhoneLabel.Click += new System.EventHandler(this.userPhoneLabel_Click);
             // 
             // userInformationsPanel
             // 
+            this.userInformationsPanel.Controls.Add(this.changeSurnameTextBox);
+            this.userInformationsPanel.Controls.Add(this.changeSurnameButton);
+            this.userInformationsPanel.Controls.Add(this.changeNameTextBox);
             this.userInformationsPanel.Controls.Add(this.changeNameButton);
             this.userInformationsPanel.Controls.Add(this.userIdLabel);
             this.userInformationsPanel.Controls.Add(this.userNameLabel);
@@ -526,12 +539,52 @@
             this.userInformationsPanel.Controls.Add(this.userDateOfBirthLabel);
             this.userInformationsPanel.Controls.Add(this.userLoginLabel);
             this.userInformationsPanel.Controls.Add(this.userSexLabel);
+            this.userInformationsPanel.Controls.Add(this.acceptChangeNameButton);
+            this.userInformationsPanel.Controls.Add(this.acceptChangeSurnameButton);
             this.userInformationsPanel.Location = new System.Drawing.Point(304, 31);
             this.userInformationsPanel.Name = "userInformationsPanel";
             this.userInformationsPanel.Size = new System.Drawing.Size(455, 353);
             this.userInformationsPanel.TabIndex = 39;
             this.userInformationsPanel.Visible = false;
             this.userInformationsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.userInformationsPanel_Paint);
+            // 
+            // changeSurnameTextBox
+            // 
+            this.changeSurnameTextBox.Location = new System.Drawing.Point(194, 72);
+            this.changeSurnameTextBox.Name = "changeSurnameTextBox";
+            this.changeSurnameTextBox.Size = new System.Drawing.Size(177, 23);
+            this.changeSurnameTextBox.TabIndex = 44;
+            this.changeSurnameTextBox.Visible = false;
+            this.changeSurnameTextBox.TextChanged += new System.EventHandler(this.changeSurnameTextBox_TextChanged);
+            // 
+            // changeSurnameButton
+            // 
+            this.changeSurnameButton.Location = new System.Drawing.Point(377, 72);
+            this.changeSurnameButton.Name = "changeSurnameButton";
+            this.changeSurnameButton.Size = new System.Drawing.Size(75, 23);
+            this.changeSurnameButton.TabIndex = 43;
+            this.changeSurnameButton.Text = "Змінити";
+            this.changeSurnameButton.UseVisualStyleBackColor = true;
+            this.changeSurnameButton.Click += new System.EventHandler(this.changeSurnameButton_Click);
+            // 
+            // changeNameTextBox
+            // 
+            this.changeNameTextBox.Location = new System.Drawing.Point(194, 42);
+            this.changeNameTextBox.Name = "changeNameTextBox";
+            this.changeNameTextBox.Size = new System.Drawing.Size(177, 23);
+            this.changeNameTextBox.TabIndex = 42;
+            this.changeNameTextBox.Visible = false;
+            this.changeNameTextBox.TextChanged += new System.EventHandler(this.changeNameTextBox_TextChanged);
+            // 
+            // changeNameButton
+            // 
+            this.changeNameButton.Location = new System.Drawing.Point(377, 41);
+            this.changeNameButton.Name = "changeNameButton";
+            this.changeNameButton.Size = new System.Drawing.Size(75, 23);
+            this.changeNameButton.TabIndex = 41;
+            this.changeNameButton.Text = "Змінити";
+            this.changeNameButton.UseVisualStyleBackColor = true;
+            this.changeNameButton.Click += new System.EventHandler(this.changeNameButton_Click);
             // 
             // userIdLabel
             // 
@@ -542,15 +595,28 @@
             this.userIdLabel.Size = new System.Drawing.Size(74, 20);
             this.userIdLabel.TabIndex = 40;
             this.userIdLabel.Text = "Ваш айді:";
+            this.userIdLabel.Click += new System.EventHandler(this.userIdLabel_Click);
             // 
-            // changeNameButton
+            // acceptChangeNameButton
             // 
-            this.changeNameButton.Location = new System.Drawing.Point(377, 41);
-            this.changeNameButton.Name = "changeNameButton";
-            this.changeNameButton.Size = new System.Drawing.Size(75, 23);
-            this.changeNameButton.TabIndex = 41;
-            this.changeNameButton.Text = "Змінити";
-            this.changeNameButton.UseVisualStyleBackColor = true;
+            this.acceptChangeNameButton.Location = new System.Drawing.Point(377, 41);
+            this.acceptChangeNameButton.Name = "acceptChangeNameButton";
+            this.acceptChangeNameButton.Size = new System.Drawing.Size(75, 23);
+            this.acceptChangeNameButton.TabIndex = 45;
+            this.acceptChangeNameButton.Text = "Зберегти";
+            this.acceptChangeNameButton.UseVisualStyleBackColor = true;
+            this.acceptChangeNameButton.Visible = false;
+            this.acceptChangeNameButton.Click += new System.EventHandler(this.acceptChangeNameButton_Click);
+            // 
+            // acceptChangeSurnameButton
+            // 
+            this.acceptChangeSurnameButton.Location = new System.Drawing.Point(377, 72);
+            this.acceptChangeSurnameButton.Name = "acceptChangeSurnameButton";
+            this.acceptChangeSurnameButton.Size = new System.Drawing.Size(75, 23);
+            this.acceptChangeSurnameButton.TabIndex = 46;
+            this.acceptChangeSurnameButton.Text = "Зберегти";
+            this.acceptChangeSurnameButton.UseVisualStyleBackColor = true;
+            this.acceptChangeSurnameButton.Click += new System.EventHandler(this.acceptChangeSurnameButton_Click);
             // 
             // Form1
             // 
@@ -640,5 +706,10 @@
         private Label userIdLabel;
         private CheckBox showHideCheckBox2;
         private Button changeNameButton;
+        private TextBox changeSurnameTextBox;
+        private Button changeSurnameButton;
+        private TextBox changeNameTextBox;
+        private Button acceptChangeNameButton;
+        private Button acceptChangeSurnameButton;
     }
 }

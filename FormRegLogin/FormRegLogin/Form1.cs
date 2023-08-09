@@ -520,25 +520,87 @@ namespace FormRegLogin
         }
         /// 
         /// 
+        /// Information for user
         /// 
         /// 
-        /// 
-
-        private void userNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void userInformationsPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
+        private void userIdLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userSurnameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userDateOfBirthLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userSexLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userPasswordLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void userPhoneLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void userLoginLabel_Click(object sender, EventArgs e)
         {
 
         }
+        ///
+        /// Change functions
+        ///
+        private void changeNameButton_Click(object sender, EventArgs e)
+        {
+            changeNameButton.Visible = false;
 
+            acceptChangeNameButton.Visible = true;
+            changeNameTextBox.Visible = true;
+        }
+        private void changeNameTextBox_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+        private void acceptChangeNameButton_Click(object sender, EventArgs e)
+        {
+            acceptChangeNameButton.Visible = false;
+            changeNameTextBox.Visible = false;
+
+            changeNameButton.Visible = true;
+        }
+        private void changeSurnameButton_Click(object sender, EventArgs e)
+        {
+            changeSurnameButton.Visible = false;
+
+            acceptChangeSurnameButton.Visible = true;
+            changeSurnameTextBox.Visible = true;
+        }
+        private void changeSurnameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void acceptChangeSurnameButton_Click(object sender, EventArgs e)
+        {
+            acceptChangeSurnameButton.Visible = false;
+            changeSurnameTextBox.Visible = false;
+
+            changeSurnameButton.Visible = true;
+        }
+
+        
     }
 }
